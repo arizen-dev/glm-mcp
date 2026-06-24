@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "advisor": {
+    "glm": {
       "command": "python3",
-      "args": ["/ABSOLUTE/PATH/TO/advisor_mcp_server.py"],
+      "args": ["/ABSOLUTE/PATH/TO/glm_mcp_server.py"],
       "env": {
         "GLM_API_KEY": "${GLM_API_KEY}"
       },

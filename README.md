@@ -1,4 +1,4 @@
-# advisor-mcp
+# glm-mcp
 
 A tiny MCP stdio server with two tools: `run` for fast bounded tasks, `advise` for deep reasoning.
 
@@ -22,7 +22,7 @@ advise(prompt, effort?, system?, thinking_token_budget?) — deep reasoning, 10-
 export GLM_API_KEY="your-key-here"
 
 # Run directly
-python3 /path/to/advisor_mcp_server.py
+python3 /path/to/glm_mcp_server.py
 ```
 
 ## Configure
@@ -32,9 +32,9 @@ python3 /path/to/advisor_mcp_server.py
 ```json
 {
   "mcpServers": {
-    "advisor": {
+    "glm": {
       "command": "python3",
-      "args": ["/path/to/advisor_mcp_server.py"],
+      "args": ["/path/to/glm_mcp_server.py"],
       "env": { "GLM_API_KEY": "${GLM_API_KEY}" },
       "timeout": 240000
     }
@@ -53,7 +53,7 @@ python3 /path/to/advisor_mcp_server.py
 
 ## Cost
 
-Per-call cost depends on token count and model (`GLM_MODEL`). Default GLM-5.2 pricing:
+Per-call cost depends on token count and model (`GLM_MODEL`). Default GLM-5.2 pricing via Neuralwatt:
 
 | Task | Input | Output | Typical |
 |------|-------|--------|---------|
@@ -69,7 +69,7 @@ Each response includes a footer with model, latency, tokens, and cost.
 | `GLM_API_KEY` | — | API key (also accepts `NEURALWATT_API_KEY`) |
 | `GLM_BASE_URL` | `https://api.neuralwatt.com/v1` | API base URL |
 | `GLM_MODEL` | `glm-5.2` | Model name |
-| `ADVISOR_MCP_LOG` | (unset) | Set to `1` to log call metadata to `~/.advisor-mcp/calls.jsonl` |
+| `GLM_MCP_LOG` | (unset) | Set to `1` to log call metadata to `~/.glm-mcp/calls.jsonl` |
 
 ## Security
 

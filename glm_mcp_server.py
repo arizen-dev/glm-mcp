@@ -14,8 +14,8 @@ from typing import Any
 from openai import OpenAI
 
 PROTOCOL_VERSION = "2024-11-05"
-SERVER_NAME = "advisor-mcp"
-SERVER_VERSION = "0.2.0"
+SERVER_NAME = "glm-mcp"
+SERVER_VERSION = "0.3.0"
 
 PRICING: dict[str, dict[str, float]] = {
     "glm-5.2": {"in": 1.40, "out": 5.60},
@@ -64,7 +64,7 @@ REASONING_HEADROOM: dict[str, int] = {
 SAFETY_CEILING = 32000
 MIN_VISIBLE = 2000
 
-LOG_DIR = os.path.expanduser("~/.advisor-mcp")
+LOG_DIR = os.path.expanduser("~/.glm-mcp")
 LOG_FILE = os.path.join(LOG_DIR, "calls.jsonl")
 
 
@@ -119,7 +119,7 @@ def _api_key_status() -> str:
 
 
 def _log_call(entry: dict[str, Any]) -> None:
-    if not os.environ.get("ADVISOR_MCP_LOG"):
+    if not os.environ.get("GLM_MCP_LOG"):
         return
     os.makedirs(LOG_DIR, exist_ok=True)
     entry["ts"] = datetime.now(timezone.utc).isoformat()
@@ -392,7 +392,7 @@ def _format_result(text: str, usage: Any, model_label: str, started_at: float) -
     cost_str = _format_cost(cost)
     if cost_str:
         metadata.append(cost_str)
-    return f"{text}\n\n---\n_advisor · {'  '.join(metadata)}_"
+    return f"{text}\n\n---\n_glm-mcp · {'  '.join(metadata)}_"
 
 
 def error_text(exc: Exception) -> str:
@@ -417,7 +417,7 @@ def handle(request: dict[str, Any]) -> dict[str, Any] | None:
         key_status = _api_key_status()
         if key_status != "set":
             print(
-                "advisor-mcp: API key not set. "
+                "glm-mcp: API key not set. "
                 "Set GLM_API_KEY or NEURALWATT_API_KEY in your MCP config env.",
                 file=sys.stderr,
                 flush=True,
