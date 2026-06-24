@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "advisor": {
+      "command": "python3",
+      "args": ["/ABSOLUTE/PATH/TO/advisor_mcp_server.py"],
+      "env": {
+        "GLM_API_KEY": "${GLM_API_KEY}"
+      },
+      "timeout": 240000
+    }
+  }
+}
