@@ -52,14 +52,12 @@ ADVISOR_SYSTEM_PROMPT = (
     "Do not hedge unnecessarily — the primary agent needs a clear signal, not diplomatic fog."
 )
 
-EFFORT_LEVELS = frozenset({"max", "xhigh", "high", "medium", "low", "minimal", "none"})
+EFFORT_LEVELS = frozenset({"max", "high", "minimal"})
 
 REASONING_HEADROOM: dict[str, int] = {
     "max": 8000,
-    "xhigh": 8000,
     "high": 4000,
-    "medium": 4000,
-    "low": 4000,
+    "minimal": 0,
 }
 SAFETY_CEILING = 32000
 MIN_VISIBLE = 2000
@@ -170,7 +168,7 @@ TOOLS: list[dict[str, Any]] = [
             "or anything where being wrong has real cost. "
             "Defaults to effort=max — exhaustive reasoning. "
             "Returns structured response: CONCLUSION / REASONING / WATCH OUT. "
-            "Use effort=high or medium for quicker lighter reads."
+            "Use effort=high for quicker reads, or minimal to skip reasoning entirely."
         ),
         "inputSchema": {
             "type": "object",
@@ -182,14 +180,15 @@ TOOLS: list[dict[str, Any]] = [
                 },
                 "effort": {
                     "type": "string",
-                    "enum": ["max", "xhigh", "high", "medium", "low", "minimal", "none"],
+                    "enum": ["max", "high", "minimal"],
                     "default": "max",
-                    "description": (
-                        "Reasoning depth (OpenAI standard scale, Neuralwatt normalizes natively). "
-                        "max / xhigh: deepest reasoning, best for complex multi-step work (~30-90s). "
-                        "high / medium / low: balanced depth and latency (~10-40s). "
-                        "minimal / none: skips the reasoning phase entirely (fast, ~2-5s)."
-                    ),
+"description": (
+    "Reasoning depth (Neuralwatt GLM-5.2 docs). "
+    "max: deepest reasoning, best for complex multi-step work (~30-90s). "
+    "high: balanced depth and latency (~10-40s). "
+    "minimal: skips the reasoning phase entirely (fast, ~2-5s) -- use when you want the advisor's structured format without spending reasoning tokens. "
+    "Other providers may interpret these values differently; the server passes effort through unchanged."
+),
                 },
                 "thinking_token_budget": {
                     "type": "integer",
