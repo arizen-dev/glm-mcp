@@ -8,13 +8,13 @@ Provider-agnostic — swap `GLM_BASE_URL` to use Neuralwatt, OpenRouter, z.ai, o
 
 ```
 run(prompt, system?)           — fast, no thinking, 2-15s
-advise(prompt, effort?, system?, thinking_token_budget?) — deep reasoning, 10-90s
+advise(prompt, effort?, system?, thinking_token_budget?, show_reasoning?) — deep reasoning, 2-90s
 ```
 
 | Tool | Mode | Best for |
 |------|------|----------|
 | `run` | Non-thinking | Classification, summarization, JSON edits, table generation, template population |
-| `advise` | Thinking (effort: max/high/medium) | Multi-factor analysis, tradeoffs, second opinions, architecture decisions |
+| `advise` | Thinking (effort: max/high/minimal) | Multi-factor analysis, tradeoffs, second opinions, architecture decisions |
 
 ## Quickstart
 
